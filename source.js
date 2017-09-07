@@ -28,7 +28,7 @@ function makeNewGif(gif) {
   let playstate = false;
 
   let gifElement = $("<div class='gif'><div>");
-  let rating = $("<p>rating: " + gifRating + "</p>");
+  let rating = $("<p class='rating'>rating: " + gifRating + "</p>");
   let gifImage = $("<img class='gifImage'></img>");
 
   gifElement.append(rating);
