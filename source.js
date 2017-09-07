@@ -111,6 +111,5 @@ $("#formSubmit").on("click", function(event) {
 });
 
 
-
 displayNewButtons();
 });
