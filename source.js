@@ -83,14 +83,13 @@ function displayGifs() {
 }
 
 function buttonRepeatChecker(input) {
+  var test = true;
   for (let i = 0; i < gifs.length; i++) {
     if (gifs[i] === input) {
-      return test;   
-    } else if (gifs[i] !== input) {
-      test = true;
+      test = false;   
     }
-  return test;
   }
+  return test;
 }
 
 
@@ -100,8 +99,8 @@ function buttonRepeatChecker(input) {
 $("#formSubmit").on("click", function(event) {
   event.preventDefault();
   let text = $('#newGifButton').val();
-  let test = false;
-  buttonRepeatChecker($("#newGifButton").val());  
+  let test = buttonRepeatChecker(text); 
+  console.log(test); 
   if(text.length > 0 && test) {
     clickSubmit();
   } else if($('#newGifButton').val().length > 0 && !test) {
