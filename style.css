@@ -1,0 +1,41 @@
+
+/*=====HEADER=====*/
+
+.page-header {
+  text-align: center;
+}
+
+/*=====Buttons=====*/
+#gifButtons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid black;
+  text-align: center;
+}
+
+/*=====FORM=====*/
+
+#gifForm {
+  border: 2px solid black;
+}
+#formSubmit {
+  margin-bottom: 10px;
+}
+#formLabel {
+  margin-top: 10px;
+}
+
+/*=====GIFS=====*/
+.gif {
+  border-bottom: 1px solid black;
+  margin: 5px;
+  text-align: center;
+}
+
+/*=====FOOTER=====*/
+
+#footer {
+  border-top: 2px solid black;
+  text-align: center;
+  margin-top: 10px;
+}
