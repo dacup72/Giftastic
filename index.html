@@ -25,26 +25,40 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <form>
-          
-          
+        <form id="search">
+          <input type='text' id='searchInput' placeholder="Enter you star trek idol!">
+          <div class='row col-md-4' id='searchOpts'>
+            <label class="radio-inline">
+              <input type="radio" name="optradio" class="radio" checked="checked" value='sm'>Small</label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio" class="radio" value='lg'>Large</label>
+            <label>Pull:</label>
+            <select class="form-control" id="pull">
+              <p>load</p>
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+            </select>
+          </div>
+          <input type='submit' id='addSearch' class='btn' value="Search">
+
         </form>
       </div>
     </div>
     <div class="container">
       <div class="row">
         <div id='searchResults'> </div>
-        
+
       </div>
     </div>
     <div class="col-sm-5">
       <div class="card">
-        
-        
+
+
       </div>
     </div>
     <div class="row col-sm-7" id="holder">
-      
+
       <div id='gif'> </div>
     </div>
 
@@ -52,7 +66,7 @@
     <!--Javascript-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"></script>
-    <script type="text/javascript" src="./assets/javascript/gif.js"></script>
+    <!-- <script type="text/javascript" src="./assets/javascript/gif.js"></script> -->
 
 </body>
 
