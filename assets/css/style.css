@@ -1,10 +1,40 @@
 body {
   background: #e7f4f5;
 }
+
+img {
+  max-height: 200px;
+  margin-right: 5px;
+}
+.fav {
+  height: 90px;
+  width: 90px;
+  object-fit: cover;
+  border: black 1px solid;
+  margin: 2px 2px 0;
+}
 .logo {
   font-size: 32px;
   text-align: center;
   color:#457b9d;
+}
+.card-header {
+  background:  #63adf2;
+  width: 100%;
+  border: black solid 2px;
+}
+h5 {
+  background:  #63adf2;
+  width: 100%;
+  border: black solid 2px;
+  padding: 10px;
+}
+h6, h5 {
+  vertical-align: bottom;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+
 }
 #search {
   text-align: center;
@@ -31,4 +61,60 @@ body {
   padding-left: 10px;
   border: 1px solid black;
   margin: 10px 10px 10px 0;
+}
+.favBtn{
+  text-align: center;
+  background:  #63adf2;
+  border-radius: 5px;
+}
+#gif > img{
+  border: black solid 3px;
+  margin: 10px 10px 0 0;
+}
+
+/* #headingOne {
+  color: white;
+  background: #63adf2;
+  border: black solid 2px;
+} */
+.radio {
+  margin-right: 10px;
+}
+#sel1 {
+  width: 50px;
+
+}
+.mb-0{
+  height: 20px;
+}
+#pull{
+  float: left;
+  width: 50px;
+  height: 25px;
+}
+#accordion{
+  float:right;
+  position: relative;
+}
+
+label {
+  margin-left: 10px;
+}
+
+input[type="radio"] {
+  margin-right: 3px;
+}
+
+@media only screen and (max-width: 500px) {
+  #gif > img {
+      margin: 0 auto;
+  }
+  #holder {
+      margin: 0 auto;
+  }
+  #pull {
+
+      font-size: 10px;
+  }
+
 }
