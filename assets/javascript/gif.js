@@ -50,7 +50,7 @@ let renderGif = () => {
         method: "GET"
     }).then( (response) => {
       console.log(response)
-      
+
       if (srcOpt === "lg") {
         let imgUrl = response.data.images.downsized_still.url;
         let imgAni = response.data.images.downsized.url; 
@@ -58,6 +58,16 @@ let renderGif = () => {
         let imgUrl = response.data.images.fixed_height_small_still.url; 
         let imgAni = response.data.images.fixed_height_small.url;  
     }
+
+    console.log (response.data.images);
+        let image = $(`
+          <img src="${imgUrl}" data-animate="${imgAni}" data-still="${imgUrl}" data-state="still" class="gify">
+        `);
+     
+        image.append(images);
+            
+            $("#gif").prepend(image);
+            // console.log (this);
     });
   }
 }
