@@ -33,12 +33,6 @@ let pullNum = 10;
     }
   }
 
-  // Collapse function for favorites section
-  // let collapse = () => {
-  //   if ($("#collapseOne".hasClass(show))) {
-  //     $('#favBtn').html(Favorites)
-  //   }
-  // }
 
   search = $(this).attr("data-name");
     
