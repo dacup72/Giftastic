@@ -32,7 +32,11 @@ let pullNum = 10;
       $("#searchResults").prepend(newBtn);
     }
   }
+let renderGif = () => {
+  pullN = $('#pull').val();
 
+    let srcOpt = $('input[name=optradio]:checked').val(); 
+ 
 
   search = $(this).attr("data-name");
     
@@ -48,6 +52,8 @@ let pullNum = 10;
 
     });
   }
+}
+  
 
 });
 
