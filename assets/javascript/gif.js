@@ -49,7 +49,15 @@ let renderGif = () => {
         url: queryURL,
         method: "GET"
     }).then( (response) => {
-
+      console.log(response)
+      
+      if (srcOpt === "lg") {
+        let imgUrl = response.data.images.downsized_still.url;
+        let imgAni = response.data.images.downsized.url; 
+    } else {
+        let imgUrl = response.data.images.fixed_height_small_still.url; 
+        let imgAni = response.data.images.fixed_height_small.url;  
+    }
     });
   }
 }
