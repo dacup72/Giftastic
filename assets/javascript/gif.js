@@ -3,6 +3,9 @@ $(document).ready(() => {
   // GLOBAL VARIABLES
   let search;
   let images = [];
+  let tapspeed = 0;
+let state;
+let pullNum = 10;
 
   // Click event to add new button
   $('#addSearch').on('click', event => {
@@ -31,10 +34,25 @@ $(document).ready(() => {
   }
 
   // Collapse function for favorites section
-  let collapse = () => {
-    if ($("#collapseOne".hasClass(show))) {
-      $('#favBtn').html(Favorites)
-    }
+  // let collapse = () => {
+  //   if ($("#collapseOne".hasClass(show))) {
+  //     $('#favBtn').html(Favorites)
+  //   }
+  // }
+
+  search = $(this).attr("data-name");
+    
+    let queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + search;
+  
+ for (let i = 0; i < pullNum; i++) {
+   
+ 
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then( (response) => {
+
+    });
   }
 
 });
