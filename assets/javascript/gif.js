@@ -7,26 +7,33 @@ $(document).ready(() => {
   // Click event to add new button
   $('#addSearch').on('click', event => {
     event.preventDefault();
-    
+
     search = $('#searchInput').val().trim();
     $('#searchResults').prepend(search);
-    // Array of search items
     images.push(search);
+
     renderButtons();
     document.getElementById('searchInput').value = '';
   });
 
+  // Function to render the added buttons
   let renderButtons = () => {
     $("#searchResults").empty();
-    
-    
+
     for (let i = 0; i < images.length; i++) {
-        let newBtn = $(`
+      let newBtn = $(`
           <button class="btnSearch" data-name="${images[i]}">
             ${images[i]}
           </button>
         `);
-        $("#searchResults").prepend(newBtn);
+      $("#searchResults").prepend(newBtn);
+    }
+  }
+
+  // Collapse function for favorites section
+  let collapse = () => {
+    if ($("#collapseOne".hasClass(show))) {
+      $('#favBtn').html(Favorites)
     }
   }
 
