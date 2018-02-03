@@ -4,8 +4,8 @@ $(document).ready(() => {
   let search;
   let images = [];
   let tapspeed = 0;
-let state;
-let pullNum = 10;
+  let state;
+  let pullNum = 10;
 
   // Click event to add new button
   $('#addSearch').on('click', event => {
@@ -32,46 +32,96 @@ let pullNum = 10;
       $("#searchResults").prepend(newBtn);
     }
   }
-let renderGif = () => {
-  pullN = $('#pull').val();
 
-    let srcOpt = $('input[name=optradio]:checked').val(); 
- 
+  $(document).on("click", "img", function() {
 
-  search = $(this).attr("data-name");
+    state = $(this).attr("data-state");
+    if (state === "still") {
+        console.log("the state is still")
+      $(this).attr("src", $(this).attr("data-animate"));
+      $(this).attr("data-state", "animate");
     
-    let queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + search;
-  
- for (let i = 0; i < pullNum; i++) {
-   
- 
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then( (response) => {
-      console.log(response)
-
-      if (srcOpt === "lg") {
-        let imgUrl = response.data.images.downsized_still.url;
-        let imgAni = response.data.images.downsized.url; 
     } else {
-        let imgUrl = response.data.images.fixed_height_small_still.url; 
-        let imgAni = response.data.images.fixed_height_small.url;  
+      $(this).attr("src", $(this).attr("data-still"));
+      $(this).attr("data-state", "still");
     }
 
-    console.log (response.data.images);
+    if (tapspeed == 0) {
+        // set first click
+        tapspeed = new Date().getTime();
+    } else {
+        // compare first click to this click and see if they occurred within double click threshold
+        if (((new Date().getTime()) - tapspeed) < 800) {
+            // double click occurred
+            if ($(this).hasClass('fav')) {
+                $(this).remove();
+                $("#gif").prepend($(this));
+                $(this).removeClass("fav");
+            }
+                else{
+                    $("#fav").append($(this));
+                    $(this).addClass("fav");
+                }
+           
+            tapspeed = 0;
+        } else {
+            // not a double click so set as a new first click
+            tapspeed = new Date().getTime();
+           
+        }
+    }
+});
+
+$(document).on("click", ".btnSearch", function () {
+
+    
+});
+
+
+
+
+
+  let renderGif = () => {
+    pullNum = $('#pull').val();
+
+    let srcOpt = $('input[name=optradio]:checked').val();
+
+
+    search = $(this).attr("data-name");
+
+    let queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + search;
+
+    for (let i = 0; i < pullNum; i++) {
+
+
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).then((response) => {
+        console.log("response: ", response);
+        let imgUrl;
+        let imgAni;
+
+        if (srcOpt === "lg") {
+          imgUrl = response.data.images.downsized_still.url;
+          imgAni = response.data.images.downsized.url;
+        } else {
+          imgUrl = response.data.images.fixed_height_small_still.url;
+          imgAni = response.data.images.fixed_height_small.url;
+        }
+
         let image = $(`
           <img src="${imgUrl}" data-animate="${imgAni}" data-still="${imgUrl}" data-state="still" class="gify">
         `);
-     
-        image.append(images);
-            
-            $("#gif").prepend(image);
-            // console.log (this);
-    });
+        console.log("image: ", image);
+
+        $("#gif").prepend(image);
+
+      });
+    }
   }
-}
-  
+
+  $(document).on("click", ".btnSearch", renderGif);
 
 });
 
