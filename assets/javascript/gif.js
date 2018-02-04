@@ -8,7 +8,7 @@ $(document).ready(() => {
   let pullNum = 10;
 
   // Click event to add new button
-  $('#addSearch').on('click', event => {
+  $('#addSearch').on('click', function() {
     event.preventDefault();
 
     search = $('#searchInput').val().trim();
