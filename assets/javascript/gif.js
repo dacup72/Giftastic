@@ -8,7 +8,7 @@ $(document).ready(() => {
   let pullNum = 10;
 
   // Click event to add new button
-  $('#addSearch').on('click', function() {
+  $('#addSearch').on('click', function () {
     event.preventDefault();
 
     search = $('#searchInput').val().trim();
@@ -33,49 +33,46 @@ $(document).ready(() => {
     }
   }
 
-  $(document).on("click", "img", function() {
+  $(document).on("click", "img", function () {
 
     state = $(this).attr("data-state");
     if (state === "still") {
-        console.log("the state is still")
+      console.log("the state is still")
       $(this).attr("src", $(this).attr("data-animate"));
       $(this).attr("data-state", "animate");
-    
+
     } else {
       $(this).attr("src", $(this).attr("data-still"));
       $(this).attr("data-state", "still");
     }
 
     if (tapspeed == 0) {
-        // set first click
-        tapspeed = new Date().getTime();
+      tapspeed = new Date().getTime();
     } else {
-        // compare first click to this click and see if they occurred within double click threshold
-        if (((new Date().getTime()) - tapspeed) < 800) {
-            // double click occurred
-            if ($(this).hasClass('fav')) {
-                $(this).remove();
-                $("#gif").prepend($(this));
-                $(this).removeClass("fav");
-            }
-                else{
-                    $("#fav").append($(this));
-                    $(this).addClass("fav");
-                }
-           
-            tapspeed = 0;
-        } else {
-            // not a double click so set as a new first click
-            tapspeed = new Date().getTime();
-           
+      if (((new Date().getTime()) - tapspeed) < 800) {
+        if ($(this).hasClass('fav')) {
+          $(this).remove();
+          $("#gif").prepend($(this));
+          $(this).removeClass("fav");
         }
+        else {
+          $("#fav").append($(this));
+          $(this).addClass("fav");
+        }
+
+        tapspeed = 0;
+      } else {
+
+        tapspeed = new Date().getTime();
+
+      }
     }
-});
+  });
 
-$(document).on("click", ".btnSearch", function () {
+  $(document).on("click", ".btnSearch", function () {
 
-    
-});
+
+  });
 
 
 
@@ -88,37 +85,37 @@ $(document).on("click", ".btnSearch", function () {
 
 
     search = $(this).attr("data-name");
-
-    let queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + search;
-
-    for (let i = 0; i < pullNum; i++) {
+    let queryURL = `https://api.giphy.com/v1/gifs/search?q=${search}&api_key=dc6zaTOxFJmzC&rating=r&sort=relevant&limit=${pullNum}`;
+    // let queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + search;
 
 
-      $.ajax({
-        url: queryURL,
-        method: "GET"
-      }).then((response) => {
-        console.log("response: ", response);
+
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then((response) => {
+      console.log("response: ", JSON.stringify(response, null, 2));
+      for (let i = 0; i < response.length; i++) {
         let imgUrl;
         let imgAni;
 
         if (srcOpt === "lg") {
-          imgUrl = response.data.images.downsized_still.url;
-          imgAni = response.data.images.downsized.url;
+          imgUrl = response.data[i].images.downsized_still.url;
+          imgAni = response.data[i].images.downsized.url;
         } else {
-          imgUrl = response.data.images.fixed_height_small_still.url;
-          imgAni = response.data.images.fixed_height_small.url;
+          imgUrl = response.data[i].images.fixed_height_small_still.url;
+          imgAni = response.data[i].images.fixed_height_small.url;
         }
 
         let image = $(`
           <img src="${imgUrl}" data-animate="${imgAni}" data-still="${imgUrl}" data-state="still" class="gify">
         `);
-        console.log("image: ", image);
 
         $("#gif").prepend(image);
+      }
+    });
 
-      });
-    }
   }
 
   $(document).on("click", ".btnSearch", renderGif);

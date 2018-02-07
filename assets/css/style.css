@@ -1,11 +1,26 @@
 body {
-  background: #e7f4f5;
+  background: url("../images/stars.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color: black;
+  text-align: center;
 }
 
 img {
   max-height: 200px;
   margin-right: 5px;
 }
+
 .fav {
   height: 90px;
   width: 90px;
