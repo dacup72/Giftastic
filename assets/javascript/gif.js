@@ -1,4 +1,4 @@
-$(document).ready(() => {
+$(document).ready(function () {
 
   // GLOBAL VARIABLES
   let search;
@@ -10,93 +10,85 @@ $(document).ready(() => {
   // Click event to add new button
   $('#addSearch').on('click', function () {
     event.preventDefault();
-
     search = $('#searchInput').val().trim();
-    $('#searchResults').prepend(search);
-    images.push(search);
 
-    renderButtons();
-    document.getElementById('searchInput').value = '';
+    if (!(images.indexOf(search) === -1) || !search) {
+      alert("Please enter a valid button");
+      return;
+    }
+    else {
+      images.push(search);
+      $("#searchInput").val("");
+      renderButtons();
+    }
   });
 
   // Function to render the added buttons
-  let renderButtons = () => {
+  let renderButtons = function () {
     $("#searchResults").empty();
 
     for (let i = 0; i < images.length; i++) {
       let newBtn = $(`
-          <button class="btnSearch" data-name="${images[i]}">
-            ${images[i]}
-          </button>
-        `);
+        <button class="btnSearch" data-name="${images[i]}">
+          ${images[i]}
+        </button>
+      `);
+
       $("#searchResults").prepend(newBtn);
     }
   }
 
-  $(document).on("click", "img", function () {
 
+  $(document).on("click", "img", function () {
     state = $(this).attr("data-state");
+
     if (state === "still") {
-      console.log("the state is still")
       $(this).attr("src", $(this).attr("data-animate"));
       $(this).attr("data-state", "animate");
-
-    } else {
+    }
+    else {
       $(this).attr("src", $(this).attr("data-still"));
       $(this).attr("data-state", "still");
     }
 
+    // Determine Tap speed
     if (tapspeed == 0) {
       tapspeed = new Date().getTime();
-    } else {
-      if (((new Date().getTime()) - tapspeed) < 800) {
-        if ($(this).hasClass('fav')) {
-          $(this).remove();
-          $("#gif").prepend($(this));
-          $(this).removeClass("fav");
-        }
-        else {
-          $("#fav").append($(this));
-          $(this).addClass("fav");
-        }
-
-        tapspeed = 0;
-      } else {
-
-        tapspeed = new Date().getTime();
-
-      }
     }
+    else if (((new Date().getTime()) - tapspeed) < 800) {
+      if ($(this).hasClass('fav')) {
+        $(this).remove();
+        $("#gif").prepend($(this));
+        $(this).removeClass("fav");
+      }
+      else {
+        $("#fav").append($(this));
+        $(this).addClass("fav");
+      }
+      tapspeed = 0;
+    }
+    else {
+      tapspeed = new Date().getTime();
+    }
+
   });
 
-  $(document).on("click", ".btnSearch", function () {
 
-
-  });
-
-
-
-
-
-  let renderGif = () => {
+  let renderGif = function () {
     pullNum = $('#pull').val();
-
     let srcOpt = $('input[name=optradio]:checked').val();
 
-
     search = $(this).attr("data-name");
-    let queryURL = `https://api.giphy.com/v1/gifs/search?q=${search}&api_key=dc6zaTOxFJmzC&rating=r&sort=relevant&limit=${pullNum}`;
-    // let queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + search;
-
-
-
+    console.log(search);
+    let queryURL = `https://api.giphy.com/v1/gifs/search?q=${search}&api_key=dc6zaTOxFJmzC&limit=${pullNum}`;
 
     $.ajax({
       url: queryURL,
       method: "GET"
-    }).then((response) => {
+    }).then(function (response) {
       console.log("response: ", JSON.stringify(response, null, 2));
-      for (let i = 0; i < response.length; i++) {
+
+      for (let i = 0; i < response.data.length; i++) {
         let imgUrl;
         let imgAni;
 
@@ -115,20 +107,11 @@ $(document).ready(() => {
         $("#gif").prepend(image);
       }
     });
-
   }
 
   $(document).on("click", ".btnSearch", renderGif);
 
 });
-
-
-
-
-
-
-
-
 
 
 
