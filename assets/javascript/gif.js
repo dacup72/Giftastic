@@ -2,10 +2,9 @@ $(document).ready(function () {
 
   // GLOBAL VARIABLES
   let search;
-  let images = [];
+  let images = ["Captain Picard", "USS Enterprise", "Romulans"];
   let tapspeed = 0;
   let state;
-  let pullNum = 10;
 
   // Click event to add new button
   $('#addSearch').on('click', function () {
@@ -75,7 +74,7 @@ $(document).ready(function () {
 
 
   let renderGif = function () {
-    pullNum = $('#pull').val();
+    let pullNum = $('#pull').val();
     let srcOpt = $('input[name=optradio]:checked').val();
 
     search = $(this).attr("data-name");
@@ -87,6 +86,7 @@ $(document).ready(function () {
       method: "GET"
     }).then(function (response) {
       console.log("response: ", JSON.stringify(response, null, 2));
+      $("#gif").empty();
 
       for (let i = 0; i < response.data.length; i++) {
         let imgUrl;
@@ -111,6 +111,7 @@ $(document).ready(function () {
 
   $(document).on("click", ".btnSearch", renderGif);
 
+  renderButtons();
 });
 
 
